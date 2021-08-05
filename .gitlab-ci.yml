@@ -1,0 +1,72 @@
+image: ${GITLAB_REGISTRY}/metrichor-ui/node-cypress-runner/master:node14
+
+variables:
+  GITLAB_REGISTRY:  '$CI_REGISTRY'
+  PATCH: $CI_BUILD_ID
+
+# Cache modules in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
+
+stages:
+  - versiontrack
+  - lint
+  - publish
+  - pages
+
+lint:
+  stage: lint
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+  script:
+    - npm run lint
+
+versiontrack:
+  stage: versiontrack
+  script:
+    - echo "export PATCH=$CI_BUILD_ID" > PATCH_VERSION
+  artifacts:
+    paths:
+      - ./PATCH_VERSION
+
+.npm-publish-external: &npm_publish_external
+  stage: publish
+  script:
+    - npm i
+    - source ./PATCH_VERSION
+    - echo "Patching report versions to $PATCH"
+    - npm run build:docs
+    - echo $NPM_TOKEN
+    - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> ./.npmrc
+    - npm publish --verbose --access public --tag ${TAG}
+
+
+publish_dev:
+  <<: *npm_publish_external
+  only:
+    - develop
+  variables:
+    TAG: 'next'
+
+publish_master:
+  <<: *npm_publish_external
+  only:
+    - master
+  variables:
+    TAG: 'latest'
+
+pages:
+  stage: pages
+  only:
+    - tags
+  script:
+    - npm i
+    - source ./PATCH_VERSION
+    - echo "Patching report versions to $PATCH"
+    - npm run build:docs
+    - mv www public
+  artifacts:
+    paths:
+      - public

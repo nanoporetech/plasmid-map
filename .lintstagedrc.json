@@ -1,0 +1,13 @@
+{
+  "*.{css,less,styl,scss,sass,sss}": [
+    "npx stylelint",
+    "git add --force"
+  ],
+  "*.{js,ts,tsx,jsx}": [
+    "eslint --fix"
+  ],
+  "*.{json,md,graphql}": [
+    "prettier --write",
+    "git add --force"
+  ]
+}

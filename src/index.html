@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
+
+    <script type="module" src="/build/plasmid.esm.js"></script>
+    <script nomodule src="/build/plasmid.js"></script>
+
+    <style>
+
+      @import url("http://fonts.googleapis.com/css?family=Lato:300,400,700|Donegal+One|Source+Code+Pro:400");
+
+      body {
+        padding: 0 1rem 2rem;
+        font-family: Lato, sans-serif;
+        font-weight: 400;
+      }
+      .lglabel {font-size:14px}
+      .mdlabel {font-size:10px}
+      .smlabel {font-size:8px}
+      .labelline {stroke:#333;stroke-dasharray:2,2;stroke-width:2px;}
+      .white {fill:#fff}
+      .black {fill:#000}
+      .red {fill:#c00}
+      .blue {fill:#00c}
+      .green {fill:#0c0}
+      .gold {fill:#990}
+      .gray {fill:#666}
+
+      plasmid-map {
+        width: 50%;
+      }
+    </style>
+  </head>
+
+  <body>
+
+      <h2>&lt;plasmid-map/&gt;</h2>
+      <plasmid-map sequencelength="1000" plasmidheight="375" plasmidwidth="375">
+        <plasmid-track width="5" trackstyle='fill:#ccc;stroke:#999;' radius='125'>
+            <tracklabel labelstyle="font-size:20px;font-weight:700;fill:#666;" text="pPMA43C"></tracklabel>
+            <tracklabel labelstyle="font-size:12px;font-weight:400;fill:#999;" text="1,000 bp" vadjust="18"></tracklabel>
+
+            <trackscale interval="10" style="stroke:#999;" vadjust="8"></trackscale>
+            <trackscale interval="50" showlabels="1" style="stroke:#333;stroke-width:2px" ticksize="5" vadjust="8" labelstyle="font-size:9px;fill:#999;font-weight:300" labelvadjust="15"></trackscale>
+
+            <!-- PstI -->
+            <track-marker start="200" end="330" markerstyle='stroke:#000;fill:#ff0;' arrowstartlength="10" arrowstartwidth="5" wadjust="10" vadjust="-5">
+                <marker-label text="PstI" vadjust="40" hadjust="2" valign="outer" labelclass="lglabel gold" showline="1" linevadjust="-15" linevadjust="-15" lineclass="labelline"></marker-label>
+                <marker-label type="path" text="200-330" labelclass="smlabel gold" vadjust="4"></marker-label>
+            </track-marker>
+
+            <!-- AcolIII -->
+            <track-marker start="450" end="620" markerstyle='stroke:#000;fill:#f00;' arrowendlength="10" arrowendwidth="5" wadjust="10" vadjust="-5">
+                <marker-label text="AcolIII" vadjust="40" hadjust="2" valign="outer" labelclass="lglabel red" showline="1" linevadjust="-10" lineclass="labelline"></marker-label>
+                <marker-label type="path" text="400-620" labelclass="smlabel white" vadjust="4"></marker-label>
+            </track-marker>
+
+            <!-- EcoRI -->
+            <track-marker start="630" end="720" markerstyle='stroke:#000;fill:#f00;' arrowendlength="10" arrowendwidth="5" wadjust="10" vadjust="-5">
+                <marker-label text="EcoRI" vadjust="40" hadjust="-2" valign="outer" labelclass="lglabel red" showline="1" linevadjust="-20" lineclass="labelline"></marker-label>
+                <marker-label type="path" text="630-720" labelclass="smlabel white" vadjust="4"></marker-label>
+            </track-marker>
+
+            <!-- ScaI -->
+            <track-marker start="760" end="880" markerstyle='stroke:#000;fill:#0f0;' arrowendlength="10" arrowendwidth="5" wadjust="10" vadjust="-5">
+                <marker-label text="ScaI" vadjust="40" valign="outer" labelclass="lglabel green" showline="1" linevadjust="-15" lineclass="labelline"></marker-label>
+                <marker-label type="path" text="760-880" labelclass="smlabel black" vadjust="4"></marker-label>
+            </track-marker>
+
+            <!-- TaqI -->
+            <track-marker start="980" end="150" markerstyle='stroke:#000;fill:#00f;' wadjust="10" vadjust="-5">
+                <marker-label text="TaqI" vadjust="40" hadjust="2" valign="outer" labelclass="lglabel blue" showline="1" linevadjust="-10" linevadjust="-15" lineclass="labelline"></marker-label>
+                <marker-label type="path" text="920-150" labelclass="smlabel white" vadjust="4"></marker-label>
+            </track-marker>
+
+            <!-- Block markers -->
+            <track-marker start="420" end="430" markerstyle='stroke:#000;fill:#666' wadjust="20" vadjust="-10">
+                <marker-label text="A35" vadjust="-15" valign="inner" labelclass="mdlabel gray"></marker-label>
+            </track-marker>
+            <track-marker start="355" end="365" markerstyle='stroke:#000;fill:#666' wadjust="20" vadjust="-10">
+                <marker-label text="A36" vadjust="-15" valign="inner" labelclass="mdlabel gray"></marker-label>
+            </track-marker>
+            <track-marker start="905" end="915" markerstyle='stroke:#000;fill:#666' wadjust="20" vadjust="-10">
+                <marker-label text="A22" vadjust="-15" valign="inner" labelclass="mdlabel gray"></marker-label>
+            </track-marker>
+            <track-marker start="170" end="180" markerstyle='stroke:#000;fill:#666' wadjust="20" vadjust="-10">
+                <marker-label text="A14" vadjust="-15" valign="inner" labelclass="mdlabel gray"></marker-label>
+            </track-marker>
+        </plasmid-track>
+    </plasmid-map>
+      <plasmid-map sequencelength="360" plasmidheight="375" plasmidwidth="375">
+        <plasmid-track trackstyle="fill:#ccc" width="5" radius="120"></plasmid-track>
+        <plasmid-track trackstyle="fill:rgba(225,225,225,0.5)" radius="110">
+          <track-label text="HSP70" labelstyle='font-size:20px;font-weight:400'></track-label>
+          <track-label text="360 bp" labelstyle='font-size:10px' vadjust="20"></track-label>
+
+          <!-- draw the main markers and labels -->
+          <track-marker start="50" end="95" markerstyle="fill:rgba(170,0,85,0.9)" arrowendlength="4" arrowstartlength="-4">
+            <marker-label showline type="path" labelclass="mdlabel white" text="HSP70"></marker-label>
+          </track-marker>
+          <track-marker start="120" end="190" markerstyle="fill:rgba(85,0,170,0.9)" arrowendlength="4"
+            arrowstartlength="-4">
+            <marker-label type="path" labelclass="mdlabel white" text="NF1 Promoter"></marker-label>
+          </track-marker>
+          <track-marker start="200" end="230" markerstyle="fill:rgba(0,85,170,0.9)" arrowendlength="4"
+            arrowstartlength="-4">
+            <marker-label type="path" labelclass="mdlabel white" text="Sig"></marker-label>
+          </track-marker>
+          <track-marker start="250" end="300" markerstyle="fill:rgba(85,170,0,0.9)" arrowendlength="4"
+            arrowstartlength="-4">
+            <marker-label type="path" labelclass="mdlabel white" text="ColE1 Ori"></marker-label>
+          </track-marker>
+          <track-marker start="325" end="345" markerstyle="fill:rgba(170,85,0,0.9)" arrowendlength="4"
+            arrowstartlength="-4">
+            <marker-label type="path" labelclass="mdlabel white" text="P3"></marker-label>
+          </track-marker>
+
+          <!-- draw the marker regions -->
+          <track-marker start="50" end="95" markerstyle="fill:rgba(255,221,238,0.6)" wadjust="-5" vadjust="25">
+          </track-marker>
+          <track-marker start="120" end="190" markerstyle="fill:rgba(238,221,255,0.6)" wadjust="-5" vadjust="25">
+          </track-marker>
+          <track-marker start="200" end="230" markerstyle="fill:rgba(221,238,255,0.6)" wadjust="-5" vadjust="25">
+          </track-marker>
+          <track-marker start="250" end="300" markerstyle="fill:rgba(238,255,221,0.6)" wadjust="-5" vadjust="25">
+          </track-marker>
+          <track-marker start="325" end="345" markerstyle="fill:rgba(255,238,221,0.6)" wadjust="-5" vadjust="25">
+          </track-marker>
+
+
+          <!-- draw the region boundaries lines for each marker -->
+          <track-marker start="50" markerstyle="stroke:rgba(128,64,64,0.8)" markerclass="boundary" wadjust="20">
+            <marker-label labelclass="smlabel red" text="50" vadjust="30"></marker-label>
+          </track-marker>
+          <track-marker start="95" markerstyle="stroke:rgba(128,64,64,0.8)" markerclass="boundary" wadjust="20">
+            <marker-label labelclass="smlabel red" text="95" vadjust="30"></marker-label>
+          </track-marker>
+          <track-marker start="120" markerstyle="stroke:rgba(128,64,128,0.8)" markerclass="boundary" wadjust="20">
+            <marker-label labelclass="smlabel purple" text="120" vadjust="30"></marker-label>
+          </track-marker>
+          <track-marker start="190" markerstyle="stroke:rgba(128,64,128,0.8)" markerclass="boundary" wadjust="20">
+            <marker-label labelclass="smlabel purple" text="190" vadjust="30"></marker-label>
+          </track-marker>
+          <track-marker start="200" markerstyle="stroke:rgba(64,128,128,0.8)" markerclass="boundary" wadjust="20">
+            <marker-label labelclass="smlabel blue" text="200" vadjust="30"></marker-label>
+          </track-marker>
+          <track-marker start="230" markerstyle="stroke:rgba(64,128,128,0.8)" markerclass="boundary" wadjust="20">
+            <marker-label labelclass="smlabel blue" text="230" vadjust="35"></marker-label>
+          </track-marker>
+          <track-marker start="250" markerstyle="stroke:rgba(64,128,64,0.8)" markerclass="boundary" wadjust="20">
+            <marker-label labelclass="smlabel green" text="250" vadjust="30"></marker-label>
+          </track-marker>
+          <track-marker start="300" markerstyle="stroke:rgba(64,128,64,0.8)" markerclass="boundary" wadjust="20">
+            <marker-label labelclass="smlabel green" text="300" vadjust="30"></marker-label>
+          </track-marker>
+          <track-marker start="325" markerstyle="stroke:rgba(128,128,64,0.8)" markerclass="boundary" wadjust="20">
+            <marker-label labelclass="smlabel gold" text="325" vadjust="30"></marker-label>
+          </track-marker>
+          <track-marker start="345" markerstyle="stroke:rgba(128,128,64,0.8)" markerclass="boundary" wadjust="20">
+            <marker-label labelclass="smlabel gold" text="345" vadjust="30"></marker-label>
+          </track-marker>
+
+          <!-- draw the scales -->
+          <track-scale interval="5" tickstyle='stroke:#999' direction="in" ticksize="3"></track-scale>
+          <track-scale interval="5" tickstyle='stroke:#999' ticksize="3"></track-scale>
+          <track-scale interval="30" tickstyle="stroke:#f00" direction="in" showlabels
+            labelstyle="fill:#999;stroke:none;text-anchor:middle;alignment-baseline:middle;font-size:10px"></track-scale>
+        </plasmid-track>
+      </plasmid-map>
+
+
+  </body>
+</html>

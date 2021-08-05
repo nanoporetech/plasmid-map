@@ -1,0 +1,138 @@
+<style>
+@import url("//fonts.googleapis.com/css?family=Lato:300,400,700|Donegal+One|Source+Code+Pro:400");
+
+#home .plasmid .markerhover:hover {
+  stroke: #f00;
+  stroke-width: 2px;
+}
+#home .plasmid .track {
+  fill: #cfd9db;
+  stroke: #c0cdd1;
+}
+#home .plasmid .tracklabelbody {
+  font: 400 20px "Donegal One";
+  fill: #5e7980;
+}
+#home .plasmid .tracklabeltitle {
+  font: 700 40px "Donegal One";
+  fill: #334145;
+}
+#home .plasmid .tracklabelsmall {
+  font: 400 12px "Lato";
+  fill: #5e7980;
+}
+#home .plasmid .scale-major {
+  stroke: #334145;
+  stroke-width: 2px;
+}
+#home .plasmid .scale-minor {
+  stroke: #94aab0;
+}
+#home .plasmid .scale-majortext {
+  font: 300 9px "Lato";
+  fill: #94aab0;
+}
+#home .plasmid .marker-label {
+  font: 400 9px "Lato";
+  fill: #334145;
+}
+#home .plasmid .featurelabel {
+  font: 700 14px "Lato";
+  fill: #c00;
+}
+#home .plasmid .regionlabel {
+  font: 400 11px "Lato";
+}
+#home .plasmid .noncodingregion {
+  fill: none;
+  stroke: #a3b6bb;
+  stroke-dasharray: 4,2;
+}
+#home .plasmid .noncodinglabel {
+  font: 400 9px "Lato";
+  fill: #5e7980;
+}
+#home .plasmid .atracklabel {
+  font: 400 20px "Donegal One";
+  color: #5e7980;
+  text-anchor: middle;
+}
+#home .plasmid .atracklabel h1 {
+  font: 700 40px "Donegal One";
+}
+#home .plasmid .atracklabel .tiny {
+  font: 400 12px "Lato";
+  margin-top: 10px;
+}
+</style>
+<div id="home">
+<plasmid-map id="pdemo" class="plasmid" plasmidheight="450" plasmidwidth="600" sequencelength="1000">
+    <plasmid-track trackclass="track" radius="130" width="25">
+
+        <track-label labelclass="tracklabeltitle" text="pHS1" vadjust="-10"></track-label>
+        <track-label labelclass="tracklabelbody" text="1000 bp" vadjust="25"></track-label>
+        <track-scale interval="10" tickclass="scale-minor"></track-scale>
+        <track-scale interval="50" tickclass="scale-major" showlabels="1" labelclass="scale-majortext"></track-scale>
+
+        <!-- Non-Coding Regions -->
+        <track-marker start="710" end="800" markerclass="noncodingregion" vadjust="55" arrowendlength="4" arrowendwidth="4" arrowstartlength="4" arrowstartwidth="4" wadjust="-10">
+            <marker-label labelclass="noncodinglabel" style="font-weight:400;kerning:2" text="710 - 800" type="path" vadjust="1"></marker-label>
+            <marker-label labelclass="noncodinglabel" text="Non-Coding" vadjust="35" hadjust="0"></marker-label>
+            <marker-label labelclass="noncodinglabel" text="Region" vadjust="35" hadjust="-3"></marker-label>
+        </track-marker>
+
+        <!-- HindIII and Primers -->
+        <track-marker markerclass="markerhover" start="130" end="229" style="fill:rgba(255,0,0,0.4)" arrowendlength="4" wadjust="8" vadjust="-4"  markerclick="markerClick($event,$marker)">
+            <marker-label labelclass="marker-label" text="FORWARD" type="path" style="fill:#fff" vadjust="5"></marker-label>
+            <marker-label labelclass="marker-label" text="Primer" type="path" style="fill:#fff" vadjust="-5"></marker-label>
+        </track-marker>
+        <track-marker start="75" style="stroke:#c00;stroke-width:2px" wadjust="12" vadjust="-6">
+                <marker-label labelclass="featurelabel" text="BamHI" type="path" valign="outer" hadjust="-2" vadjust="38"></marker-label>
+                <svgelement type="a" xlink:href="http://en.wikipedia.org/wiki/BamHI" target="_blank">
+                    <marker-label labelclass="featurelabel" style="font-size:11px;font-weight:300" text="Click for details..." type="path" valign="outer" hadjust="-2" vadjust="25" showline="1" linestyle="stroke:#666;stroke-dasharray:2,2" linevadjust="-10"></marker-label>
+                </svgelement>
+            <marker-label labelclass="featurelabel" text="75" type="path" valign="inner" vadjust="-5"></marker-label>
+        </track-marker>
+        <track-marker start="230" style="stroke:#c00;stroke-width:2px" wadjust="12" vadjust="-6">
+            <svgelement type="a" xlink:href="http://en.wikipedia.org/wiki/EcoRI" target="_blank"><marker-label labelclass="featurelabel" text="EcoRI" type="path" valign="outer" hadjust="2" vadjust="30" showline="1" linestyle="stroke:#666;stroke-dasharray:2,2" linevadjust="-10"></marker-label></svgelement>
+            <marker-label labelclass="featurelabel" text="230" type="path" valign="inner" vadjust="-5"></marker-label>
+        </track-marker>
+        <track-marker  markerclass="markerhover" start="231" end="350" style="fill:rgba(128,0,0,0.4)" arrowstartlength="4" wadjust="8" vadjust="-4"  markerclick="markerClick($event,$marker)">
+            <marker-label labelclass="marker-label" text="REVERSE" type="path" style="fill:#fff" vadjust="5"></marker-label>
+            <marker-label labelclass="marker-label" text="Primer" type="path" style="fill:#fff" vadjust="-5"></marker-label>
+        </track-marker>
+
+        <!-- Sequencing Region -->
+        <track-marker markerclass="markerhover" start="802" end="980" style="fill:rgba(0,128,0,0.1)" wadjust="30" markerclick="markerClick($event,$marker)">
+            <marker-label labelclass="regionlabel" text="Sequencing Region" type="path" style="fill:rgba(0,128,0,.6)" vadjust="40"></marker-label>
+        </track-marker>
+        <track-marker start="802" style="stroke:rgba(0,64,0,0.5);stroke-dasharray:3,1;" wadjust="30">
+            <marker-label labelclass="regionlabel" text="802" type="path" style="fill:rgba(0,128,0,.6)" valign="inner" vadjust="-5"></marker-label>
+        </track-marker>
+        <track-marker start="980" style="stroke:rgba(0,64,0,0.5);stroke-dasharray:3,1;" wadjust="30">
+            <marker-label labelclick="labelClick($event,$label)" labelclass="regionlabel" text="980" type="path" style="fill:rgba(0,128,0,.6)" valign="inner" vadjust="-5"></marker-label>
+        </track-marker>
+
+        <!-- TARGET PROTEINS -->
+        <track-marker start="462" end="712" style="fill:rgba(0,0,128,.4)" vadjust="3" arrowendlength="4" arrowendwidth="4" wadjust="-5">
+            <marker-label text="TARGET PROTEINS" type="path" style="fill:rgba(0,0,64,.7);font-family:'Lato';font-size:12px;font-weight:700" vadjust="45"></marker-label>
+        </track-marker>
+        <track-marker markerclass="markerhover" style="fill:rgba(0,0,128,.4)" start="482" end="567" wadjust="8" vadjust="-4" markerclick="markerClick($event, $marker)">
+            <marker-label labelclass="marker-label" text="LEUII" style="fill:#fff;font-weight:700" ></marker-label>
+        </track-marker>
+        <track-marker markerclass="markerhover" style="fill:rgba(0,0,128,.4)" start="585" end="645" wadjust="8" vadjust="-4" markerclick="markerClick($event, $marker)">
+            <marker-label labelclass="marker-label" text="AMPR" style="fill:#fff;font-weight:700" ></marker-label>
+        </track-marker>
+        <track-marker markerclass="markerhover" style="fill:rgba(0,0,128,.4)" start="661" end="692" wadjust="8" vadjust="-4" markerclick="markerClick($event, $marker)">
+            <marker-label labelclass="marker-label" text="ADHI" style="fill:#fff;font-weight:700" ></marker-label>
+        </track-marker>
+        <track-marker start="462" style="stroke:rgba(0,0,64,.7);stroke-width:2px;stroke-dasharray:4,2" vadjust="-7" wadjust="15">
+            <marker-label text="462" style="fill:rgba(0,0,64,.7);font:700 10px 'Lato'" vadjust="-35"></marker-label>
+        </track-marker>
+        <track-marker start="712" style="stroke:rgba(0,0,64,.7);stroke-width:2px;stroke-dasharray:4,2" vadjust="-7" wadjust="15">
+            <marker-label text="712" style="fill:rgba(0,0,64,.7);font:700 10px 'Lato'" vadjust="-35"></marker-label>
+        </track-marker>
+
+    </plasmid-track>
+</plasmid-map>
+</div>

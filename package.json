@@ -1,0 +1,56 @@
+{
+  "name": "@metrichor/plasmid",
+  "version": "0.1.0",
+  "description": "Plasmid map visualisations",
+  "main": "dist/index.cjs.js",
+  "module": "dist/custom-elements/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/custom-elements/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/plasmid/plasmid.esm.js",
+  "author": {
+    "name": "Oxford Nanopore Technologies",
+    "email": "support@nanoporetech.com",
+    "url": "https://nanoporetech.com"
+  },
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "keywords": [
+    "plasmid",
+    "open-source",
+    "science",
+    "opensource",
+    "research",
+    "visualisation",
+    "bacteria",
+    "dna",
+    "rna",
+    "sequences",
+    "vixis"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "stencil build",
+    "build:docs": "npm run build --docs",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test:watch": "stencil test --spec --e2e --watchAll",
+    "lint": "eslint --ignore-path .eslintignore './{src,test}/**/*.{js,ts,tsx,jsx}'",
+    "lint:fix": "npm run lint -- --fix",
+    "generate": "stencil generate"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@stencil/core": "^2.6.0",
+    "@stencil/sass": "^1.4.1",
+    "@types/jest": "^26.0.24",
+    "@types/puppeteer": "^5.4.3",
+    "jest": "^26.6.3",
+    "jest-cli": "^26.6.3",
+    "puppeteer": "^5.5.0"
+  }
+}
