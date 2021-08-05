@@ -1,9 +1,5 @@
-import { Component, Host, h, Prop, Method, Element } from '@stencil/core';
+import { Component, Host, h, Prop, Element } from '@stencil/core';
 import { CartesianCoordinate, Dimension } from './plasmid.type';
-
-// const Hello = (props: any, children: any) => [<h1>Hello, {props.name}</h1>, children];
-
-const DEFAULT_DIMENSION = 300;
 
 @Component({
   tag: 'plasmid-map',
@@ -12,11 +8,10 @@ const DEFAULT_DIMENSION = 300;
 export class PlasmidMap {
   @Prop() sequence = '';
   @Prop() sequencelength = 0;
-  @Prop() plasmidwidth = DEFAULT_DIMENSION;
-  @Prop() plasmidheight = DEFAULT_DIMENSION;
-  // @Prop() width = DEFAULT_DIMENSION;
-  // @Prop() height = DEFAULT_DIMENSION;
-  @Prop() data = [];
+  @Prop() plasmidwidth = 300;
+  @Prop() plasmidheight = 300;
+  // @Prop() width = 300;
+  // @Prop() height = 300;
 
   @Element() hostEl!: HTMLPlasmidMapElement;
 
@@ -37,11 +32,6 @@ export class PlasmidMap {
     };
   }
 
-  @Method()
-  async getPlasmid(): Promise<PlasmidMap> {
-    return this;
-  }
-
   componentDidLoad() {
     this.hostEl.querySelectorAll('plasmid-track').forEach((pt) => {
       pt.draw(this, this.svgRoot);
@@ -50,11 +40,11 @@ export class PlasmidMap {
 
   render() {
     return (
-      <Host part="container">
-        <div class="image-container" part="image">
+      <Host>
+        <div class="image-container">
           <svg
             ref={(init) => (this.svgRoot = init)}
-            class={`plasmid-map svg-content${this.data && this.data.length ? '' : ' no-data'}`}
+            class="plasmid-map svg-content"
             xmlns="http://www.w3.org/2000/svg"
             viewBox={`0 0 ${this.plasmidwidth} ${this.plasmidheight}`}
             preserveAspectRatio="xMinYMin meet"

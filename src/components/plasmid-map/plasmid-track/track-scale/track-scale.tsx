@@ -4,9 +4,6 @@ import { CartesianCoordinate } from '../../plasmid.type';
 
 import { SVGUtil } from '../../services';
 
-const DEFAULT_LABELVADJUST = 15;
-const DEFAULT_TICKSIZE = 3;
-
 @Component({
   tag: 'track-scale',
   styleUrl: 'track-scale.scss',
@@ -14,15 +11,15 @@ const DEFAULT_TICKSIZE = 3;
 export class TrackScale {
   @Prop() interval = 0;
   @Prop() vadjust = 0;
-  @Prop() ticksize = DEFAULT_TICKSIZE;
+  @Prop() ticksize = 3;
   @Prop() direction: '' | 'in' = '';
   @Prop() showlabels = false;
-  @Prop() labelvadjust = DEFAULT_LABELVADJUST;
+  @Prop() labelvadjust = 15;
   @Prop() labelclass = '';
   @Prop() labelstyle = '';
   @Prop() tickclass = '';
   @Prop() tickstyle = 'stroke:#999';
-  @Prop() scaleclick: () => void = () => {};
+  // @Prop() scaleclick: () => void = () => {};
 
   @Element() trackScaleEl!: HTMLTrackScaleElement;
   // private scaleEl!: SVGGElement;

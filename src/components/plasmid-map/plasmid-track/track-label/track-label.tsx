@@ -13,7 +13,7 @@ export class TrackLabel {
   @Prop() vadjust = 0;
   @Prop() labelclass = '';
   @Prop() labelstyle = '';
-  @Prop() labelclick: () => void = () => {};
+  // @Prop() labelclick: () => void = () => {};
 
   @Element() trackLabelEl!: HTMLTrackLabelElement;
   private labelEl!: SVGTextElement;
@@ -43,7 +43,7 @@ export class TrackLabel {
         'text-anchor': 'middle',
         'alignment-baseline': 'middle',
       });
-      text.addEventListener('click', this.labelclick);
+      // text.addEventListener('click', this.labelclick);
       this.labelEl = text;
       this.trackRootEl?.append(text);
     }

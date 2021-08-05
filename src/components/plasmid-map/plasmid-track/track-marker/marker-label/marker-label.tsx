@@ -10,18 +10,15 @@ import type {
   VAlign,
 } from '../../../plasmid.type';
 
-const VALIGN_DEFAULT = 'middle';
-const HALIGN_DEFAULT = 'middle';
-
 @Component({
   tag: 'marker-label',
   styleUrl: 'marker-label.scss',
 })
 export class MarkerLabel {
   @Prop() text = '';
-  @Prop() valign: VAlign = VALIGN_DEFAULT;
+  @Prop() valign: VAlign = 'middle';
   @Prop() vadjust = 0;
-  @Prop() halign: HAlign = HALIGN_DEFAULT;
+  @Prop() halign: HAlign = 'middle';
   @Prop() hadjust = 0;
   @Prop() type = '';
   @Prop() showline = false;
@@ -30,7 +27,7 @@ export class MarkerLabel {
   @Prop() labelstyle = '';
   @Prop() labelclass = '';
   @Prop() linevadjust = 0;
-  @Prop() labelclick: () => void = () => {};
+  // @Prop() labelclick: () => void = () => {};
 
   @Element() hostEl!: HTMLMarkerLabelElement;
   private trackMarkerGroupEl!: SVGGElement;

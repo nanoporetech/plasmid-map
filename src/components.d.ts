@@ -15,7 +15,6 @@ export namespace Components {
         "hadjust": number;
         "halign": HAlign;
         "labelclass": string;
-        "labelclick": () => void;
         "labelstyle": string;
         "lineclass": string;
         "linestyle": string;
@@ -27,8 +26,6 @@ export namespace Components {
         "valign": VAlign;
     }
     interface PlasmidMap {
-        "data": any[];
-        "getPlasmid": () => Promise<PlasmidMap>;
         "plasmidheight": number;
         "plasmidwidth": number;
         "sequence": string;
@@ -44,7 +41,6 @@ export namespace Components {
         "draw": (plasmidTrackInstance?: PlasmidTrack, trackGroupEl?: SVGGElement) => Promise<void>;
         "hadjust": number;
         "labelclass": string;
-        "labelclick": () => void;
         "labelstyle": string;
         "text": string;
         "vadjust": number;
@@ -59,7 +55,6 @@ export namespace Components {
         "draw": (plasmidTrackInstance?: PlasmidTrack, trackGroupEl?: SVGGElement) => Promise<void>;
         "end"?: number;
         "markerclass": string;
-        "markerclick": () => void;
         "markergroup": string;
         "markerstyle": string;
         "start": number;
@@ -73,7 +68,6 @@ export namespace Components {
         "labelclass": string;
         "labelstyle": string;
         "labelvadjust": number;
-        "scaleclick": () => void;
         "showlabels": boolean;
         "tickclass": string;
         "ticksize": number;
@@ -132,7 +126,6 @@ declare namespace LocalJSX {
         "hadjust"?: number;
         "halign"?: HAlign;
         "labelclass"?: string;
-        "labelclick"?: () => void;
         "labelstyle"?: string;
         "lineclass"?: string;
         "linestyle"?: string;
@@ -144,7 +137,6 @@ declare namespace LocalJSX {
         "valign"?: VAlign;
     }
     interface PlasmidMap {
-        "data"?: any[];
         "plasmidheight"?: number;
         "plasmidwidth"?: number;
         "sequence"?: string;
@@ -158,7 +150,6 @@ declare namespace LocalJSX {
     interface TrackLabel {
         "hadjust"?: number;
         "labelclass"?: string;
-        "labelclick"?: () => void;
         "labelstyle"?: string;
         "text"?: string;
         "vadjust"?: number;
@@ -172,7 +163,6 @@ declare namespace LocalJSX {
         "arrowstartwidth"?: number;
         "end"?: number;
         "markerclass"?: string;
-        "markerclick"?: () => void;
         "markergroup"?: string;
         "markerstyle"?: string;
         "start"?: number;
@@ -185,7 +175,6 @@ declare namespace LocalJSX {
         "labelclass"?: string;
         "labelstyle"?: string;
         "labelvadjust"?: number;
-        "scaleclick"?: () => void;
         "showlabels"?: boolean;
         "tickclass"?: string;
         "ticksize"?: number;

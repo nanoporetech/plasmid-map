@@ -3,19 +3,15 @@ import type { PlasmidMap } from '../plasmid-map';
 import type { CartesianCoordinate } from '../plasmid.type';
 import { SVGUtil } from '../services';
 
-const DEFAULT_WIDTH = 25;
-const DEFAULT_RADIUS = 100;
-const DEFAULT_TRACKSTYLE = 'fill:#ccc;stroke:#999;';
-
 @Component({
   tag: 'plasmid-track',
   styleUrl: 'plasmid-track.scss',
   scoped: true,
 })
 export class PlasmidTrack {
-  @Prop() width = DEFAULT_WIDTH;
-  @Prop() radius = DEFAULT_RADIUS;
-  @Prop() trackstyle = DEFAULT_TRACKSTYLE;
+  @Prop() width = 25;
+  @Prop() radius = 100;
+  @Prop() trackstyle = 'fill:#ccc;stroke:#999;';
 
   @Element() hostEl!: HTMLPlasmidTrackElement;
 

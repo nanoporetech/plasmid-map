@@ -30,7 +30,7 @@ export class TrackMarker {
   @Prop() arrowendangle = 0;
   @Prop() markerclass = '';
   @Prop() markerstyle = '';
-  @Prop() markerclick: () => void = () => {};
+  // @Prop() markerclick: () => void = () => {};
 
   @Element() hostEl!: HTMLTrackMarkerElement;
   private trackMarkerGroupEl!: SVGGElement;
