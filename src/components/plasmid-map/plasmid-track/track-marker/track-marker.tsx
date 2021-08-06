@@ -111,7 +111,7 @@ export class TrackMarker {
 
     if (this.trackMarkerGroupEl === undefined) {
       const g = createNode<SVGGElement>('g');
-      const path = createNode<SVGGElement>('path');
+      const path = createNode<SVGPathElement>('path');
       g.appendChild(path);
       this.trackMarkerGroupEl = g;
       this.trackRootEl?.append(g);

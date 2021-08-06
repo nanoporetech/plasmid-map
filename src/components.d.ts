@@ -14,12 +14,14 @@ export namespace Components {
         "draw": (trackMarkerInstance?: TrackMarker, trackMarkerGroupEl?: SVGGElement) => Promise<void>;
         "hadjust": number;
         "halign": HAlign;
+        "href": string;
         "labelclass": string;
         "labelstyle": string;
         "lineclass": string;
         "linestyle": string;
         "linevadjust": number;
         "showline": boolean;
+        "target": string;
         "text": string;
         "type": string;
         "vadjust": number;
@@ -125,12 +127,14 @@ declare namespace LocalJSX {
     interface MarkerLabel {
         "hadjust"?: number;
         "halign"?: HAlign;
+        "href"?: string;
         "labelclass"?: string;
         "labelstyle"?: string;
         "lineclass"?: string;
         "linestyle"?: string;
         "linevadjust"?: number;
         "showline"?: boolean;
+        "target"?: string;
         "text"?: string;
         "type"?: string;
         "vadjust"?: number;

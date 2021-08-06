@@ -70,7 +70,7 @@ export class TrackScale {
 
     if (this.scaleGroupEl === undefined) {
       const g = createNode<SVGGElement>('g');
-      const path = createNode<SVGGElement>('path');
+      const path = createNode<SVGPathElement>('path');
       g.appendChild(path);
       this.scaleGroupEl = g;
       this.trackRootEl?.append(g);

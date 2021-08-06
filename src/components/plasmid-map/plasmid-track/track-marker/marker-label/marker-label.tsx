@@ -14,6 +14,8 @@ export class MarkerLabel {
   @Prop() halign: HAlign = 'middle';
   @Prop() hadjust = 0;
   @Prop() type = '';
+  @Prop() href = '';
+  @Prop() target = '';
   @Prop() showline = false;
   @Prop() linestyle = '';
   @Prop() lineclass = '';
@@ -123,6 +125,7 @@ export class MarkerLabel {
         style: 'fill:none;stroke:none',
         id: `TPATH${(Math.random() + 1).toString(36).substring(3, 7)}`,
       });
+
       const text = createNode<SVGTextElement>('text', {
         'text-anchor': 'middle',
         'alignment-baseline': 'middle',
@@ -131,8 +134,15 @@ export class MarkerLabel {
       g.appendChild(path);
       g.appendChild(text);
       g.setAttribute('text', this.text);
+
+      const a = createNode<SVGAElement>('a', {
+        href: this.href,
+        target: this.target,
+      });
+      this.href !== '' && a.appendChild(g);
+
       this.trackMarkerGroupEl = g;
-      this.markerRootEl?.append(g);
+      this.markerRootEl?.append(this.href === '' ? g : a);
     }
 
     const [lineEl, pathEl, textEl] = Array.from(this.trackMarkerGroupEl.children);
@@ -145,8 +155,9 @@ export class MarkerLabel {
       textEl.setAttribute('y', '');
 
       if (this.textPathEl === undefined) {
-        const textPathSVG = document.createElementNS('http://www.w3.org/2000/svg', 'textPath');
-        textPathSVG.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#' + pathEl.id);
+        const textPathSVG = createNode<SVGTextPathElement>('textPath', {
+          href: `#${pathEl.id}`,
+        });
         this.textPathEl = textPathSVG;
         this.emptyElement(textEl);
         textEl.append(this.textPathEl);

@@ -44,7 +44,7 @@ export class PlasmidTrack {
     const d = pathDonut(x, y, this.radius, this.width);
     if (this.trackGroupEl === undefined) {
       const g = createNode<SVGGElement>('g');
-      const path = createNode<SVGGElement>('path');
+      const path = createNode<SVGPathElement>('path');
       path.setAttribute('fill-rule', 'evenodd');
       g.appendChild(path);
       this.trackGroupEl = g;

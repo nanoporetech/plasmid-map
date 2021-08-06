@@ -41,17 +41,15 @@ export class PlasmidMap {
   render() {
     return (
       <Host>
-        <div class="image-container">
-          <svg
-            ref={init => (this.svgRoot = init)}
-            class="plasmid-map svg-content"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox={`0 0 ${this.plasmidwidth} ${this.plasmidheight}`}
-            preserveAspectRatio="xMinYMin meet"
-          >
-            <slot />
-          </svg>
-        </div>
+        <svg
+          ref={init => (this.svgRoot = init)}
+          class="plasmid-map svg-content"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox={`0 0 ${this.plasmidwidth} ${this.plasmidheight}`}
+          preserveAspectRatio="xMinYMin meet"
+        >
+          <slot />
+        </svg>
       </Host>
     );
   }
