@@ -1,8 +1,8 @@
 import { Component, Method, Prop, Element } from '@stencil/core';
 import type { PlasmidTrack } from '../plasmid-track';
-import { CartesianCoordinate } from '../../plasmid.type';
+import { CartesianCoordinate } from '../../../../types/plasmid.type';
 
-import { SVGUtil } from '../../services';
+import { createNode, elementScaleLabels, pathScale } from '../../../../utils';
 
 @Component({
   tag: 'track-scale',
@@ -58,11 +58,7 @@ export class TrackScale {
     if (this.track === undefined) {
       return 0;
     }
-    return (
-      (this.inwardflg ? this.track.radius : this.track.radius + this.track.width) +
-      (this.inwardflg ? -1 : 1) * this.vadjust +
-      (this.inwardflg ? -this.ticksize : 0)
-    );
+    return (this.inwardflg ? this.track.radius : this.track.radius + this.track.width) + (this.inwardflg ? -1 : 1) * this.vadjust + (this.inwardflg ? -this.ticksize : 0);
   }
 
   @Method()
@@ -72,16 +68,16 @@ export class TrackScale {
       this.trackRootEl = trackGroupEl;
     }
 
-    if (!this.scaleGroupEl) {
-      const g = SVGUtil.svg.createNode<SVGGElement>('g');
-      const path = SVGUtil.svg.createNode<SVGGElement>('path');
+    if (this.scaleGroupEl === undefined) {
+      const g = createNode<SVGGElement>('g');
+      const path = createNode<SVGGElement>('path');
       g.appendChild(path);
       this.scaleGroupEl = g;
       this.trackRootEl?.append(g);
     }
 
     const { x, y } = this.center;
-    const d = SVGUtil.svg.path.scale(x, y, this.radius, this.interval, this.total, this.ticksize);
+    const d = pathScale(x, y, this.radius, this.interval, this.total, this.ticksize);
     this.scaleGroupEl.firstElementChild?.setAttribute('d', d);
     this.scaleGroupEl.firstElementChild?.setAttribute('style', this.tickstyle);
     this.scaleGroupEl.firstElementChild?.setAttribute('class', this.tickclass);
@@ -94,14 +90,15 @@ export class TrackScale {
   }
 
   private clearLabels() {
-    while (this.scaleLabelGroupEl?.firstElementChild) {
+    const isDefined = this.scaleLabelGroupEl !== undefined;
+    while (isDefined && this.scaleLabelGroupEl.firstElementChild !== null) {
       this.scaleLabelGroupEl?.firstElementChild?.remove();
     }
   }
 
   private drawLabel() {
-    if (!this.scaleLabelGroupEl) {
-      const g = SVGUtil.svg.createNode<SVGGElement>('g');
+    if (this.scaleLabelGroupEl === undefined) {
+      const g = createNode<SVGGElement>('g');
       this.scaleLabelGroupEl = g;
       this.scaleGroupEl?.append(g);
     }
@@ -113,15 +110,15 @@ export class TrackScale {
     //   });
     // }
     const { x, y } = this.center;
-    const labels = SVGUtil.svg.element.scalelabels(x, y, this.labelradius, this.interval, this.total);
+    const labels = elementScaleLabels(x, y, this.labelradius, this.interval, this.total);
     this.clearLabels();
 
     for (let i = 0; i <= labels.length - 1; i += 1) {
-      const t = SVGUtil.svg.createNode<SVGTextElement>('text');
-      if (this.labelclass) {
+      const t = createNode<SVGTextElement>('text');
+      if (this.labelclass !== '') {
         t.setAttribute('class', this.labelclass);
       }
-      if (this.labelstyle) {
+      if (this.labelstyle !== '') {
         t.setAttribute('style', this.labelstyle);
       }
       t.setAttribute('x', `${labels[i].x}`);

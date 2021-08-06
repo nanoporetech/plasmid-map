@@ -1,64 +1,6 @@
-import {
-  ArrowPosition,
-  CartesianCoordinate,
-  ScaleLabel,
-  SVGDonutPath,
-  SVGDonutPathLimit,
-  SVGPathArc,
-  SVGPathScale,
-} from './plasmid.type';
-/*
-                PUBLIC API
-                -----------------------------------------------------------------------
-                api - API for working with AngularPlasmid objects on a page
-                util - General utilities
-                svg - SVG node, path calculations
-            */
+import { ArrowPosition, CartesianCoordinate, ScaleLabel, SVGDonutPath, SVGDonutPathLimit, SVGPathArc, SVGPathScale } from '../types/plasmid.type';
 
-const plasmids: any[] = [];
-const tracks: any[] = [];
-const markers: any[] = [];
-
-// Decimal round with precision
-function round10(value: number | (string | number)[], exp: number): number {
-  // If the exp is undefined or zero...
-  if (typeof exp === 'undefined' || +exp === 0) {
-    return Math.round(+value);
-  }
-  value = +value;
-  exp = +exp;
-  // If the value is not a number or the exp is not an integer...
-  if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
-    return NaN;
-  }
-  // Shift
-  value = value.toString().split('e');
-  value = Math.round(+(value[0] + 'e' + (value[1] ? +value[1] - exp : -exp)));
-  // Shift back
-  value = value.toString().split('e');
-  return +(value[0] + 'e' + (value[1] ? +value[1] + exp : exp));
-}
-
-function addPlasmid(plasmid: unknown): void {
-  plasmids.push(plasmid);
-}
-
-function plasmid(id: string): unknown {
-  let i: number;
-  for (i = 0; i < plasmids.length; i += 1) {
-    if (plasmids[i].id === id) {
-      return plasmids[i];
-    }
-  }
-  return;
-}
-
-function polarToCartesian(
-  centerX: number,
-  centerY: number,
-  radius: number,
-  angleInDegrees: number,
-): CartesianCoordinate {
+export function polarToCartesian(centerX: number, centerY: number, radius: number, angleInDegrees: number): CartesianCoordinate {
   const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
   return {
     x: centerX + radius * Math.cos(angleInRadians),
@@ -66,9 +8,9 @@ function polarToCartesian(
   };
 }
 
-function swapProperties(elemFrom: Element, elemTo: Element): void {
+export function swapProperties(elemFrom: Element, elemTo: Element): void {
   let property: string;
-  const PROPLIST = ['id', 'name', 'class', 'style', 'filter', 'ng-attr-style', 'ng-attr-class', 'ng-class'];
+  const PROPLIST = ['id', 'name', 'class', 'style', 'filter'];
 
   for (let i = 0; i < PROPLIST.length; i += 1) {
     property = PROPLIST[i];
@@ -79,33 +21,22 @@ function swapProperties(elemFrom: Element, elemTo: Element): void {
   }
 }
 
-function createNode<T = SVGElement>(
-  name: string,
-  settings: { [x: string]: any } = {},
-  excludeSettings: string | any[] = [],
-): T {
+export function createNode<T = SVGElement>(name: string, settings: { [x: string]: any } = {}, excludeSettings: string[] = []): T {
   const namespace = 'http://www.w3.org/2000/svg';
   const node = document.createElementNS(namespace, name);
 
-  excludeSettings = excludeSettings || [];
   Object.entries(settings).forEach(([attribute, value]) => {
     if (excludeSettings.indexOf(attribute) < 0) {
       value = settings[attribute];
-      if (value !== null && !attribute.match(/\$/) && (typeof value !== 'string' || value !== '')) {
+      if (value !== null && (typeof value !== 'string' || value !== '')) {
         node.setAttribute(attribute, value);
       }
     }
   });
-  return (node as unknown) as T;
+  return node as unknown as T;
 }
 
-function removeAttributes(element: HTMLElement): void {
-  ['id', 'class', 'style'].forEach((a: string) => {
-    element.removeAttribute(a);
-  });
-}
-
-function pathDonut(x: number, y: number, radius: number, width: number): SVGDonutPath {
+export function pathDonut(x: number, y: number, radius: number, width: number): SVGDonutPath {
   x = Number(x || 0);
   y = Number(y || 0);
   radius = Number(radius || 0);
@@ -147,7 +78,7 @@ function pathDonut(x: number, y: number, radius: number, width: number): SVGDonu
   return path;
 }
 
-function pathArc(
+export function pathArc(
   x: number,
   y: number,
   radius: number,
@@ -258,34 +189,29 @@ function pathArc(
   return d;
 }
 
-function pathScale(x = 0, y = 0, radius = 0, interval = 0, total = 0, tickLength = 2): SVGPathScale {
+export function pathScale(x = 0, y = 0, radius = 0, interval = 0, total = 0, tickLength = 2): SVGPathScale {
   let alpha: number,
     sin: number,
     cos: number,
     i: number,
     d = '';
-  const numTicks = interval > 0 ? total / interval : 0,
-    beta = (2 * Math.PI) / numTicks,
-    precision = -1;
+  const numTicks = interval > 0 ? total / interval : 0;
+  const beta = (2 * Math.PI) / numTicks;
 
   for (i = 0; i < numTicks; i += 1) {
     alpha = beta * i - Math.PI / 2;
     cos = Math.cos(alpha);
     sin = Math.sin(alpha);
-    d += `M${round10(x + radius * cos, precision)},${round10(y + radius * sin, precision)} L${round10(
-      x + (radius + tickLength) * cos,
-      precision,
-    )},${round10(y + (radius + tickLength) * sin, precision)} `;
+    d += `M${(x + radius * cos).toFixed(1)},${(y + radius * sin).toFixed(1)} L${(x + (radius + tickLength) * cos).toFixed(1)},${(y + (radius + tickLength) * sin).toFixed(1)} `;
   }
   d = d || 'M 0,0';
   return d;
 }
 
-function elementScaleLabels(x: number, y: number, radius: number, interval: number, total: number): ScaleLabel[] {
+export function elementScaleLabels(x: number, y: number, radius: number, interval: number, total: number): ScaleLabel[] {
   let alpha: number, sin: number, cos: number, i: number;
   const numTicks = interval > 0 ? total / interval : 0,
     beta = (2 * Math.PI) / numTicks,
-    precision = -1,
     labelArr = [];
 
   for (i = 0; i < numTicks; i += 1) {
@@ -293,41 +219,10 @@ function elementScaleLabels(x: number, y: number, radius: number, interval: numb
     cos = Math.cos(alpha);
     sin = Math.sin(alpha);
     labelArr.push({
-      x: round10(x + radius * cos, precision),
-      y: round10(y + radius * sin, precision),
+      x: (x + radius * cos).toFixed(1),
+      y: (y + radius * sin).toFixed(1),
       text: interval * i,
     });
   }
   return labelArr;
 }
-
-function Numeric(numberVal: number, numberDefault = 0): number {
-  return isNaN(numberVal) ? numberDefault : Number(numberVal);
-}
-
-export const SVGUtil = {
-  api: {
-    addPlasmid: addPlasmid,
-    plasmids: plasmids,
-    plasmid: plasmid,
-    plasmidtracks: tracks,
-    trackmarkers: markers,
-  },
-  util: {
-    polarToCartesian: polarToCartesian,
-    swapProperties: swapProperties,
-    Numeric: Numeric,
-  },
-  svg: {
-    createNode: createNode,
-    removeAttributes: removeAttributes,
-    path: {
-      donut: pathDonut,
-      arc: pathArc,
-      scale: pathScale,
-    },
-    element: {
-      scalelabels: elementScaleLabels,
-    },
-  },
-};

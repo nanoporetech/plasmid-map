@@ -1,7 +1,7 @@
 import { Component, Prop, Element, Method } from '@stencil/core';
 import type { PlasmidTrack } from '../plasmid-track';
-import { CartesianCoordinate } from '../../plasmid.type';
-import { SVGUtil } from '../../services';
+import { CartesianCoordinate } from '../../../../types/plasmid.type';
+import { createNode } from '../../../../utils';
 
 @Component({
   tag: 'track-label',
@@ -38,8 +38,8 @@ export class TrackLabel {
       this.trackRootEl = trackGroupEl;
     }
     const { x, y } = this.center;
-    if (!this.labelEl) {
-      const text = SVGUtil.svg.createNode<SVGTextElement>('text', {
+    if (this.labelEl === undefined) {
+      const text = createNode<SVGTextElement>('text', {
         'text-anchor': 'middle',
         'alignment-baseline': 'middle',
       });

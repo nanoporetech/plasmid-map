@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop, Element } from '@stencil/core';
-import { CartesianCoordinate, Dimension } from './plasmid.type';
+import { CartesianCoordinate, Dimension } from '../../types/plasmid.type';
 
 @Component({
   tag: 'plasmid-map',
@@ -33,7 +33,7 @@ export class PlasmidMap {
   }
 
   componentDidLoad() {
-    this.hostEl.querySelectorAll('plasmid-track').forEach((pt) => {
+    this.hostEl.querySelectorAll('plasmid-track').forEach(pt => {
       pt.draw(this, this.svgRoot);
     });
   }
@@ -43,7 +43,7 @@ export class PlasmidMap {
       <Host>
         <div class="image-container">
           <svg
-            ref={(init) => (this.svgRoot = init)}
+            ref={init => (this.svgRoot = init)}
             class="plasmid-map svg-content"
             xmlns="http://www.w3.org/2000/svg"
             viewBox={`0 0 ${this.plasmidwidth} ${this.plasmidheight}`}

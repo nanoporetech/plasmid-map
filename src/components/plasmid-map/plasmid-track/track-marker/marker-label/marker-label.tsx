@@ -1,14 +1,7 @@
 import { Component, Method, Element, Prop } from '@stencil/core';
 import type { TrackMarker } from '../track-marker';
-import { SVGUtil } from '../../../services';
-import type {
-  CartesianCoordinate,
-  CartesianCoordinatePositionMap,
-  HAlign,
-  MarkerLabelAngle,
-  SVGPathArc,
-  VAlign,
-} from '../../../plasmid.type';
+import { createNode, pathArc } from '../../../../../utils';
+import type { CartesianCoordinate, CartesianCoordinatePositionMap, HAlign, MarkerLabelAngle, SVGPathArc, VAlign } from '../../../../../types/plasmid.type';
 
 @Component({
   tag: 'marker-label',
@@ -47,12 +40,7 @@ export class MarkerLabel {
     return this.marker.center;
   }
 
-  private getMarkerPosition(
-    hAdjust = 0,
-    vAdjust = 0,
-    hAlign?: HAlign,
-    vAlign?: VAlign,
-  ): CartesianCoordinate | CartesianCoordinatePositionMap {
+  private getMarkerPosition(hAdjust = 0, vAdjust = 0, hAlign?: HAlign, vAlign?: VAlign): CartesianCoordinate | CartesianCoordinatePositionMap {
     if (this.marker === undefined) {
       return {
         x: 0,
@@ -105,8 +93,8 @@ export class MarkerLabel {
   }
 
   private emptyElement(el: Element): void {
-    while (el?.firstElementChild) {
-      el?.firstElementChild?.remove();
+    while (el.firstElementChild !== null) {
+      el.firstElementChild.remove();
     }
   }
 
@@ -118,7 +106,7 @@ export class MarkerLabel {
     }
     const { startAngle, endAngle } = this.markerAngle;
 
-    return SVGUtil.svg.path.arc(x, y, this.radius + vAdjust, startAngle + hAdjust, endAngle + hAdjust, 1);
+    return pathArc(x, y, this.radius + vAdjust, startAngle + hAdjust, endAngle + hAdjust, 1);
   }
 
   @Method()
@@ -128,14 +116,14 @@ export class MarkerLabel {
       this.markerRootEl = trackMarkerGroupEl;
     }
 
-    if (!this.trackMarkerGroupEl) {
-      const g = SVGUtil.svg.createNode<SVGGElement>('g');
-      const line = SVGUtil.svg.createNode<SVGPathElement>('path');
-      const path = SVGUtil.svg.createNode<SVGPathElement>('path', {
+    if (this.trackMarkerGroupEl === undefined) {
+      const g = createNode<SVGGElement>('g');
+      const line = createNode<SVGPathElement>('path');
+      const path = createNode<SVGPathElement>('path', {
         style: 'fill:none;stroke:none',
         id: `TPATH${(Math.random() + 1).toString(36).substring(3, 7)}`,
       });
-      const text = SVGUtil.svg.createNode<SVGTextElement>('text', {
+      const text = createNode<SVGTextElement>('text', {
         'text-anchor': 'middle',
         'alignment-baseline': 'middle',
       });
@@ -156,7 +144,7 @@ export class MarkerLabel {
       textEl.setAttribute('x', '');
       textEl.setAttribute('y', '');
 
-      if (!this.textPathEl) {
+      if (this.textPathEl === undefined) {
         const textPathSVG = document.createElementNS('http://www.w3.org/2000/svg', 'textPath');
         textPathSVG.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#' + pathEl.id);
         this.textPathEl = textPathSVG;
@@ -184,33 +172,24 @@ export class MarkerLabel {
           break;
       }
     } else {
-      if (this.textPathEl) {
+      if (this.textPathEl !== undefined) {
         this.textPathEl.remove();
+        this.textPathEl = undefined;
       }
-      const { x, y } = this.getMarkerPosition(
-        this.hadjust,
-        this.vadjust,
-        this.halign,
-        this.valign,
-      ) as CartesianCoordinate;
+      const { x, y } = this.getMarkerPosition(this.hadjust, this.vadjust, this.halign, this.valign) as CartesianCoordinate;
       textEl.setAttribute('x', `${x ?? 0}`);
       textEl.setAttribute('y', `${y ?? 0}`);
       textEl.textContent = this.text;
     }
 
     if (this.showline) {
-      const { x: sourceX, y: sourceY } = this.getMarkerPosition(
-        this.hadjust,
-        this.vadjust + this.linevadjust,
-        this.halign,
-        this.valign,
-      ) as CartesianCoordinate;
+      const { x: sourceX, y: sourceY } = this.getMarkerPosition(this.hadjust, this.vadjust + this.linevadjust, this.halign, this.valign) as CartesianCoordinate;
       const destinationPosition = this.getMarkerPosition() as CartesianCoordinatePositionMap;
       const dstV = destinationPosition[this.valign];
       const { x: destinationX, y: destinationY } = dstV[this.halign];
       lineEl.setAttribute('d', ['M', sourceX, sourceY, 'L', destinationX, destinationY].join(' '));
 
-      if (!this.linestyle && !this.lineclass) {
+      if (this.linestyle !== '' && this.lineclass !== '') {
         lineEl.setAttribute('style', 'stroke:#000');
       }
       this.linestyle && lineEl.setAttribute('style', this.linestyle);

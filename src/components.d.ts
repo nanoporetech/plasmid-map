@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { CartesianCoordinate, CartesianCoordinatePositionMap, HAlign, VAlign } from "./components/plasmid-map/plasmid.type";
+import { CartesianCoordinate, CartesianCoordinatePositionMap, HAlign, VAlign } from "./types/plasmid.type";
 import { TrackMarker } from "./components/plasmid-map/plasmid-track/track-marker/track-marker";
 import { PlasmidMap } from "./components/plasmid-map/plasmid-map";
 import { PlasmidTrack } from "./components/plasmid-map/plasmid-track/plasmid-track";

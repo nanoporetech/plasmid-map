@@ -1,7 +1,7 @@
 import { Component, Element, Method, Prop } from '@stencil/core';
 import type { PlasmidMap } from '../plasmid-map';
-import type { CartesianCoordinate } from '../plasmid.type';
-import { SVGUtil } from '../services';
+import type { CartesianCoordinate } from '../../../types/plasmid.type';
+import { createNode, pathDonut } from '../../../utils';
 
 @Component({
   tag: 'plasmid-track',
@@ -41,10 +41,10 @@ export class PlasmidTrack {
       this.svgRoot = svgRoot;
     }
     const { x, y } = this.center;
-    const d = SVGUtil.svg.path.donut(x, y, this.radius, this.width);
-    if (!this.trackGroupEl) {
-      const g = SVGUtil.svg.createNode<SVGGElement>('g');
-      const path = SVGUtil.svg.createNode<SVGGElement>('path');
+    const d = pathDonut(x, y, this.radius, this.width);
+    if (this.trackGroupEl === undefined) {
+      const g = createNode<SVGGElement>('g');
+      const path = createNode<SVGGElement>('path');
       path.setAttribute('fill-rule', 'evenodd');
       g.appendChild(path);
       this.trackGroupEl = g;
@@ -54,17 +54,17 @@ export class PlasmidTrack {
     this.trackGroupEl.firstElementChild?.setAttribute('style', this.trackstyle);
 
     // Render track markers
-    this.hostEl.querySelectorAll('track-marker').forEach((tm) => {
+    this.hostEl.querySelectorAll('track-marker').forEach(tm => {
       tm.draw(this as PlasmidTrack, this.trackGroupEl);
     });
 
     // Render track scales
-    this.hostEl.querySelectorAll('track-scale').forEach((ts) => {
+    this.hostEl.querySelectorAll('track-scale').forEach(ts => {
       ts.draw(this as PlasmidTrack, this.trackGroupEl);
     });
 
     // Render track labels
-    this.hostEl.querySelectorAll('track-label').forEach((tl) => {
+    this.hostEl.querySelectorAll('track-label').forEach(tl => {
       tl.draw(this as PlasmidTrack, this.trackGroupEl);
     });
   }

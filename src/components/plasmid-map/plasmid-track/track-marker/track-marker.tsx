@@ -1,16 +1,8 @@
 import { Component, Method, Prop, Element } from '@stencil/core';
 import type { PlasmidTrack } from '../plasmid-track';
-import type {
-  ArrowPosition,
-  CartesianCoordinate,
-  CartesianCoordinatePositionMap,
-  HAlign,
-  MarkerAngleLimit,
-  MarkerRadiusLimit,
-  VAlign,
-} from '../../plasmid.type';
+import type { ArrowPosition, CartesianCoordinate, CartesianCoordinatePositionMap, HAlign, MarkerAngleLimit, MarkerRadiusLimit, VAlign } from '../../../../types/plasmid.type';
 
-import { SVGUtil } from '../../services';
+import { createNode, pathArc, polarToCartesian } from '../../../../utils';
 
 @Component({
   tag: 'track-marker',
@@ -117,9 +109,9 @@ export class TrackMarker {
       this.trackRootEl = trackGroupEl;
     }
 
-    if (!this.trackMarkerGroupEl) {
-      const g = SVGUtil.svg.createNode<SVGGElement>('g');
-      const path = SVGUtil.svg.createNode<SVGGElement>('path');
+    if (this.trackMarkerGroupEl === undefined) {
+      const g = createNode<SVGGElement>('g');
+      const path = createNode<SVGGElement>('path');
       g.appendChild(path);
       this.trackMarkerGroupEl = g;
       this.trackRootEl?.append(g);
@@ -127,25 +119,20 @@ export class TrackMarker {
     const { x, y } = this.center;
     const { inner } = this.radius;
     const { start, end } = this.angle;
-    const d = SVGUtil.svg.path.arc(x, y, inner, start, end, this.width, this.arrowstart, this.arrowend);
+    const d = pathArc(x, y, inner, start, end, this.width, this.arrowstart, this.arrowend);
 
     this.trackMarkerGroupEl.firstElementChild?.setAttribute('d', d);
     this.trackMarkerGroupEl.firstElementChild?.setAttribute('style', `fill:none;${this.markerstyle}`);
     this.trackMarkerGroupEl.firstElementChild?.setAttribute('class', this.markerclass);
 
     // Render marker labels
-    this.hostEl.querySelectorAll('marker-label').forEach((ml) => {
+    this.hostEl.querySelectorAll('marker-label').forEach(ml => {
       ml.draw(this as TrackMarker, this.trackMarkerGroupEl);
     });
   }
 
   // eslint-disable-next-line @stencil/own-props-must-be-private
-  getPosition = (
-    hAdjust: number,
-    vAdjust: number,
-    hAlign?: HAlign,
-    vAlign?: VAlign,
-  ): CartesianCoordinate | CartesianCoordinatePositionMap => {
+  getPosition = (hAdjust: number, vAdjust: number, hAlign?: HAlign, vAlign?: VAlign): CartesianCoordinate | CartesianCoordinatePositionMap => {
     const { x, y } = this.center;
     const markerRadius = this.radius;
     const markerAngle = this.angle;
@@ -177,7 +164,7 @@ export class TrackMarker {
           break;
       }
 
-      return SVGUtil.util.polarToCartesian(x, y, radius, angle);
+      return polarToCartesian(x, y, radius, angle);
     } else {
       const radius = {
         outer: markerRadius.outer + vAdjust,
@@ -193,19 +180,19 @@ export class TrackMarker {
 
       return {
         outer: {
-          start: SVGUtil.util.polarToCartesian(x, y, radius.outer, angle.start),
-          middle: SVGUtil.util.polarToCartesian(x, y, radius.outer, angle.middle),
-          end: SVGUtil.util.polarToCartesian(x, y, radius.outer, angle.end),
+          start: polarToCartesian(x, y, radius.outer, angle.start),
+          middle: polarToCartesian(x, y, radius.outer, angle.middle),
+          end: polarToCartesian(x, y, radius.outer, angle.end),
         },
         middle: {
-          start: SVGUtil.util.polarToCartesian(x, y, radius.middle, angle.start),
-          middle: SVGUtil.util.polarToCartesian(x, y, radius.middle, angle.middle),
-          end: SVGUtil.util.polarToCartesian(x, y, radius.middle, angle.end),
+          start: polarToCartesian(x, y, radius.middle, angle.start),
+          middle: polarToCartesian(x, y, radius.middle, angle.middle),
+          end: polarToCartesian(x, y, radius.middle, angle.end),
         },
         inner: {
-          start: SVGUtil.util.polarToCartesian(x, y, radius.inner, angle.start),
-          middle: SVGUtil.util.polarToCartesian(x, y, radius.inner, angle.middle),
-          end: SVGUtil.util.polarToCartesian(x, y, radius.inner, angle.end),
+          start: polarToCartesian(x, y, radius.inner, angle.start),
+          middle: polarToCartesian(x, y, radius.inner, angle.middle),
+          end: polarToCartesian(x, y, radius.inner, angle.end),
         },
       };
     }
