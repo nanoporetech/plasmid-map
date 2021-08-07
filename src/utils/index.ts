@@ -14,21 +14,21 @@ export function swapProperties(elemFrom: Element, elemTo: Element): void {
 
   for (let i = 0; i < PROPLIST.length; i += 1) {
     property = PROPLIST[i];
-    if (elemFrom[0].hasAttribute(property)) {
+    if (elemFrom.hasAttribute(property)) {
       elemTo.setAttribute(property, elemFrom.getAttribute(property) ?? '');
       elemFrom.removeAttribute(property);
     }
   }
 }
 
-export function createNode<T = SVGElement>(name: string, settings: { [x: string]: any } = {}, excludeSettings: string[] = []): T {
+export function createNode<T>(name: string, settings: { [x: string]: any } = {}, excludeSettings: string[] = []): T {
   const namespace = 'http://www.w3.org/2000/svg';
   const node = document.createElementNS(namespace, name);
 
   Object.entries(settings).forEach(([attribute, value]) => {
     if (excludeSettings.indexOf(attribute) < 0) {
       value = settings[attribute];
-      if (value !== null && (typeof value !== 'string' || value !== '')) {
+      if (value !== null && value !== '') {
         node.setAttribute(attribute, value);
       }
     }
@@ -204,7 +204,7 @@ export function pathScale(x = 0, y = 0, radius = 0, interval = 0, total = 0, tic
     sin = Math.sin(alpha);
     d += `M${(x + radius * cos).toFixed(1)},${(y + radius * sin).toFixed(1)} L${(x + (radius + tickLength) * cos).toFixed(1)},${(y + (radius + tickLength) * sin).toFixed(1)} `;
   }
-  d = d || 'M 0,0';
+  d = d.trimRight() || 'M 0,0';
   return d;
 }
 

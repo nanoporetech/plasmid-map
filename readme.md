@@ -1,9 +1,9 @@
 
 # Plasmid visualisation
 
-We have recreated the VIXIS plasmid map (https://github.com/vixis/angularplasmid) as a reusable web component.
+We have recreated the VIXIS plasmid map () as a reusable web component.
 
-![Plasmid DEMO](./demo.png)
+![Plasmid DEMO](demo.png)
 
 ## Using this component
 
@@ -29,6 +29,4 @@ There are three strategies we recommend for using the `@metrichor/plasmid` web c
 
 To use the Plasmid map visualisation in your HTML you will need to create a [plasmid-map](./src/components/plasmid-map/readme.md) tag and appropriate nested tags
 
-See [examples](./examples/biojs/all.html)
-
-
+See [examples](examples/all.html)
