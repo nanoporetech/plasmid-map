@@ -10,15 +10,45 @@ import { createNode, elementScaleLabels, pathScale } from '../../../../utils';
   shadow: true,
 })
 export class TrackScale {
+  /**
+   * scale intercal
+   */
   @Prop() interval = 0;
+  /**
+   * vertical adjustment
+   */
   @Prop() vadjust = 0;
+  /**
+   * relative size tick is drawn
+   */
   @Prop() ticksize = 3;
+  /**
+   * `'in'` is inverse direction
+   */
   @Prop() direction: '' | 'in' = '';
+  /**
+   * show/hide labels
+   */
   @Prop() showlabels = false;
+  /**
+   * vertical adjustment of labels
+   */
   @Prop() labelvadjust = 15;
+  /**
+   * CSS class of label
+   */
   @Prop() labelclass = '';
+  /**
+   * CSS element style of label
+   */
   @Prop() labelstyle = '';
+  /**
+   * CSS class of tick
+   */
   @Prop() tickclass = '';
+  /**
+   * CSS element style of tick
+   */
   @Prop() tickstyle = 'stroke:#999';
   // @Prop() scaleclick: () => void = () => {};
 
@@ -62,6 +92,9 @@ export class TrackScale {
     return (this.inwardflg ? this.track.radius : this.track.radius + this.track.width) + (this.inwardflg ? -1 : 1) * this.vadjust + (this.inwardflg ? -this.ticksize : 0);
   }
 
+  /**
+   * Called by [plasmid-track](..) parent passing in the host instance and element
+   */
   @Method()
   async draw(plasmidTrackInstance?: PlasmidTrack, trackGroupEl?: SVGGElement): Promise<void> {
     if (plasmidTrackInstance && this.track === undefined) {

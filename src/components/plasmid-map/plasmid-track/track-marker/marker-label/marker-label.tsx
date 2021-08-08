@@ -1,7 +1,7 @@
 import { Component, Method, Element, Prop } from '@stencil/core';
 import type { TrackMarker } from '../track-marker';
 import { createNode, pathArc } from '../../../../../utils';
-import type { CartesianCoordinate, CartesianCoordinatePositionMap, HAlign, MarkerLabelAngle, SVGPathArc, VAlign } from '../../../../../types/plasmid.type';
+import type { CartesianCoordinate, CartesianCoordinatePositionMap, HAlign, MarkerLabelAngle, MarkerLabelType, SVGPathArc, VAlign } from '../../../../../types/plasmid.type';
 
 @Component({
   tag: 'marker-label',
@@ -9,19 +9,61 @@ import type { CartesianCoordinate, CartesianCoordinatePositionMap, HAlign, Marke
   shadow: true,
 })
 export class MarkerLabel {
+  /**
+   * label text
+   */
   @Prop() text = '';
+  /**
+   * vertical alignment of label
+   */
   @Prop() valign: VAlign = 'middle';
+  /**
+   * DOC
+   */
   @Prop() vadjust = 0;
+  /**
+   * vertical adjustment of label
+   */
   @Prop() halign: HAlign = 'middle';
+  /**
+   * horizontal adjustment of label
+   */
   @Prop() hadjust = 0;
-  @Prop() type = '';
+  /**
+   * render label as either SVG text or textPath
+   */
+  @Prop() type: MarkerLabelType = 'text';
+  /**
+   * link
+   */
   @Prop() href = '';
+  /**
+   * link target
+   */
   @Prop() target = '';
+  /**
+   * show/hide label line
+   */
   @Prop() showline = false;
+  /**
+   * CSS element style of label line
+   */
   @Prop() linestyle = '';
+  /**
+   * CSS class of label line
+   */
   @Prop() lineclass = '';
+  /**
+   * CSS class of label
+   */
   @Prop() labelstyle = '';
+  /**
+   * CSS element style of label
+   */
   @Prop() labelclass = '';
+  /**
+   * vertical adjustment of label line
+   */
   @Prop() linevadjust = 0;
   // @Prop() labelclick: () => void = () => {};
 
@@ -112,6 +154,9 @@ export class MarkerLabel {
     return pathArc(x, y, this.radius + vAdjust, startAngle + hAdjust, endAngle + hAdjust, 1);
   }
 
+  /**
+   * Called by [track-marker](..) parent passing in the host instance and element
+   */
   @Method()
   async draw(trackMarkerInstance?: TrackMarker, trackMarkerGroupEl?: SVGGElement): Promise<void> {
     if (trackMarkerInstance && this.marker === undefined) {

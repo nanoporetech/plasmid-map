@@ -7,9 +7,21 @@ import { CartesianCoordinate, Dimension } from '../../types/plasmid.type';
   scoped: true,
 })
 export class PlasmidMap {
+  /**
+   * nucleotide sequence `"ACGTGCCT..."`
+   */
   @Prop() sequence = '';
+  /**
+   * Plasmid sequence length
+   */
   @Prop() sequencelength = 0;
+  /**
+   * SVG image width
+   */
   @Prop() plasmidwidth = 300;
+  /**
+   * SVG image height
+   */
   @Prop() plasmidheight = 300;
   // @Prop() width = 300;
   // @Prop() height = 300;
@@ -33,10 +45,18 @@ export class PlasmidMap {
     };
   }
 
-  componentDidLoad() {
-    this.hostEl.querySelectorAll('plasmid-track').forEach(pt => {
+  private draw() {
+    this.hostEl.querySelectorAll<HTMLPlasmidTrackElement>('plasmid-track:not(.docs-only)').forEach(pt => {
       pt.draw(this, this.svgRoot);
     });
+  }
+
+  componentDidLoad() {
+    this.draw();
+  }
+
+  componentDidUpdate() {
+    this.draw();
   }
 
   render() {
@@ -49,6 +69,7 @@ export class PlasmidMap {
         preserveAspectRatio="xMinYMin meet"
       >
         <slot />
+        <plasmid-track class="docs-only" style={{ display: 'none' }} />
       </svg>
     );
   }

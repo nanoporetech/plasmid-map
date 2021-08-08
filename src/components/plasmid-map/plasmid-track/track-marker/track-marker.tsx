@@ -1,4 +1,4 @@
-import { Component, Method, Prop, Element } from '@stencil/core';
+import { Component, Host, h, Method, Prop, Element } from '@stencil/core';
 import type { PlasmidTrack } from '../plasmid-track';
 import type { ArrowPosition, CartesianCoordinate, CartesianCoordinatePositionMap, HAlign, MarkerAngleLimit, MarkerRadiusLimit, VAlign } from '../../../../types/plasmid.type';
 
@@ -10,18 +10,53 @@ import { createNode, pathArc, polarToCartesian } from '../../../../utils';
   shadow: true,
 })
 export class TrackMarker {
+  /**
+   * start position (given sequence or sequence length)
+   */
   @Prop() start = 0;
+  /**
+   * end position (given sequence or sequence length)
+   */
   @Prop() end?: number;
+  /**
+   * vertical adjustment of marker
+   */
   @Prop() vadjust = 0;
+  /**
+   * marker width adjustment
+   */
   @Prop() wadjust = 0;
-  @Prop() markergroup = '';
+  /**
+   * start arrow length
+   */
   @Prop() arrowstartlength = 0;
+  /**
+   * start arrow width
+   */
   @Prop() arrowstartwidth = 0;
+  /**
+   * start arrow - angle of left and right corner sensible values -3 -> 3
+   */
   @Prop() arrowstartangle = 0;
+  /**
+   * length of arrow
+   */
   @Prop() arrowendlength = 0;
+  /**
+   * width of arrow
+   */
   @Prop() arrowendwidth = 0;
+  /**
+   * end arrow - angle of left and right corner sensible values -3 -> 3
+   */
   @Prop() arrowendangle = 0;
+  /**
+   * CSS marker class
+   */
   @Prop() markerclass = '';
+  /**
+   * CSS element style
+   */
   @Prop() markerstyle = '';
   // @Prop() markerclick: () => void = () => {};
 
@@ -103,6 +138,9 @@ export class TrackMarker {
     };
   }
 
+  /**
+   * Called by [plasmid-track](..) parent passing in the host instance and element
+   */
   @Method()
   async draw(plasmidTrackInstance?: PlasmidTrack, trackGroupEl?: SVGGElement): Promise<void> {
     if (plasmidTrackInstance && this.track === undefined) {
@@ -127,13 +165,13 @@ export class TrackMarker {
     this.trackMarkerGroupEl.firstElementChild?.setAttribute('class', this.markerclass);
 
     // Render marker labels
-    this.hostEl.querySelectorAll('marker-label').forEach(ml => {
+    this.hostEl.querySelectorAll<HTMLMarkerLabelElement>('marker-label:not(.docs-only)').forEach(ml => {
       ml.draw(this as TrackMarker, this.trackMarkerGroupEl);
     });
   }
 
   // eslint-disable-next-line @stencil/own-props-must-be-private
-  getPosition = (hAdjust: number, vAdjust: number, hAlign?: HAlign, vAlign?: VAlign): CartesianCoordinate | CartesianCoordinatePositionMap => {
+  public getPosition = (hAdjust: number, vAdjust: number, hAlign?: HAlign, vAlign?: VAlign): CartesianCoordinate | CartesianCoordinatePositionMap => {
     const { x, y } = this.center;
     const markerRadius = this.radius;
     const markerAngle = this.angle;
@@ -201,5 +239,13 @@ export class TrackMarker {
 
   componentDidUpdate() {
     this.draw();
+  }
+
+  render() {
+    return (
+      <Host>
+        <marker-label class="docs-only" style={{ display: 'none' }} />
+      </Host>
+    );
   }
 }

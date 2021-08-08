@@ -7,13 +7,30 @@
 
 ## Properties
 
-| Property         | Attribute        | Description | Type     | Default |
-| ---------------- | ---------------- | ----------- | -------- | ------- |
-| `plasmidheight`  | `plasmidheight`  |             | `number` | `300`   |
-| `plasmidwidth`   | `plasmidwidth`   |             | `number` | `300`   |
-| `sequence`       | `sequence`       |             | `string` | `''`    |
-| `sequencelength` | `sequencelength` |             | `number` | `0`     |
+| Property         | Attribute        | Description                         | Type     | Default |
+| ---------------- | ---------------- | ----------------------------------- | -------- | ------- |
+| `plasmidheight`  | `plasmidheight`  | SVG image height                    | `number` | `300`   |
+| `plasmidwidth`   | `plasmidwidth`   | SVG image width                     | `number` | `300`   |
+| `sequence`       | `sequence`       | nucleotide sequence `"ACGTGCCT..."` | `string` | `''`    |
+| `sequencelength` | `sequencelength` | Plasmid sequence length             | `number` | `0`     |
 
+
+## Dependencies
+
+### Depends on
+
+- [plasmid-track](plasmid-track)
+
+### Graph
+```mermaid
+graph TD;
+  plasmid-map --> plasmid-track
+  plasmid-track --> track-label
+  plasmid-track --> track-marker
+  plasmid-track --> track-scale
+  track-marker --> marker-label
+  style plasmid-map fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

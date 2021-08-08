@@ -9,10 +9,25 @@ import { createNode } from '../../../../utils';
   shadow: true,
 })
 export class TrackLabel {
+  /**
+   * label text
+   */
   @Prop() text = '';
+  /**
+   * horizontal adjustment
+   */
   @Prop() hadjust = 0;
+  /**
+   * vertical adjustment
+   */
   @Prop() vadjust = 0;
+  /**
+   * CSS class for label
+   */
   @Prop() labelclass = '';
+  /**
+   * CSS style rules on element
+   */
   @Prop() labelstyle = '';
   // @Prop() labelclick: () => void = () => {};
 
@@ -32,6 +47,9 @@ export class TrackLabel {
     return this.track.center;
   }
 
+  /**
+   * Called by [plasmid-track](..) parent passing in the host instance and element
+   */
   @Method()
   async draw(plasmidTrackInstance?: PlasmidTrack, trackGroupEl?: SVGGElement): Promise<void> {
     if (plasmidTrackInstance && this.track === undefined) {

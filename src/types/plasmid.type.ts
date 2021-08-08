@@ -65,3 +65,5 @@ export interface CartesianCoordinatePositionMap {
 export type VAlign = 'inner' | 'outer' | 'middle';
 
 export type HAlign = 'start' | 'middle' | 'end';
+
+export type MarkerLabelType = 'text' | 'path';
