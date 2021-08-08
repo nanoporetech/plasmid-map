@@ -1,7 +1,7 @@
 
 # Plasmid visualisation
 
-We have recreated the VIXIS plasmid map () as a reusable web component.
+We have recreated the VIXIS plasmid map (http://angularplasmid.vixis.com/) as a reusable web component for all modern web frameworks.
 
 ![Plasmid DEMO](demo.png)
 
