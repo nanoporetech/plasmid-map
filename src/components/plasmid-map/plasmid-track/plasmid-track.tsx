@@ -6,7 +6,7 @@ import { createNode, pathDonut } from '../../../utils';
 @Component({
   tag: 'plasmid-track',
   styleUrl: 'plasmid-track.scss',
-  scoped: true,
+  shadow: true,
 })
 export class PlasmidTrack {
   @Prop() width = 25;

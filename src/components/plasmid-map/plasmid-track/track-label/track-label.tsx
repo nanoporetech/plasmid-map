@@ -6,6 +6,7 @@ import { createNode } from '../../../../utils';
 @Component({
   tag: 'track-label',
   styleUrl: 'track-label.scss',
+  shadow: true,
 })
 export class TrackLabel {
   @Prop() text = '';

@@ -1,9 +1,10 @@
-import { Component, Host, h, Prop, Element } from '@stencil/core';
+import { Component, h, Prop, Element } from '@stencil/core';
 import { CartesianCoordinate, Dimension } from '../../types/plasmid.type';
 
 @Component({
   tag: 'plasmid-map',
   styleUrl: 'plasmid-map.scss',
+  scoped: true,
 })
 export class PlasmidMap {
   @Prop() sequence = '';
@@ -40,17 +41,15 @@ export class PlasmidMap {
 
   render() {
     return (
-      <Host>
-        <svg
-          ref={init => (this.svgRoot = init)}
-          class="plasmid-map svg-content"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox={`0 0 ${this.plasmidwidth} ${this.plasmidheight}`}
-          preserveAspectRatio="xMinYMin meet"
-        >
-          <slot />
-        </svg>
-      </Host>
+      <svg
+        ref={init => (this.svgRoot = init)}
+        class="plasmid-map svg-content"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox={`0 0 ${this.plasmidwidth} ${this.plasmidheight}`}
+        preserveAspectRatio="xMinYMin meet"
+      >
+        <slot />
+      </svg>
     );
   }
 }

@@ -6,6 +6,7 @@ import type { CartesianCoordinate, CartesianCoordinatePositionMap, HAlign, Marke
 @Component({
   tag: 'marker-label',
   styleUrl: 'marker-label.scss',
+  shadow: true,
 })
 export class MarkerLabel {
   @Prop() text = '';

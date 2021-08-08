@@ -7,6 +7,7 @@ import { createNode, elementScaleLabels, pathScale } from '../../../../utils';
 @Component({
   tag: 'track-scale',
   styleUrl: 'track-scale.scss',
+  shadow: true,
 })
 export class TrackScale {
   @Prop() interval = 0;

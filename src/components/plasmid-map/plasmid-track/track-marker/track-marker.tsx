@@ -7,6 +7,7 @@ import { createNode, pathArc, polarToCartesian } from '../../../../utils';
 @Component({
   tag: 'track-marker',
   styleUrl: 'track-marker.scss',
+  shadow: true,
 })
 export class TrackMarker {
   @Prop() start = 0;
