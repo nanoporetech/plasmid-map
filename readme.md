@@ -3,7 +3,7 @@
 
 We have recreated the VIXIS plasmid map (http://angularplasmid.vixis.com/) as a reusable web component for all modern web frameworks.
 
-![Plasmid DEMO](https://github.com/nanoporetech/plasmid-map/blob/master/demo.png)
+![Plasmid DEMO](https://github.com/nanoporetech/plasmid-map/blob/master/demo.png?raw=true)
 
 ## Using this component
 
