@@ -1,6 +1,7 @@
 {
   "name": "@metrichor/plasmid",
-  "version": "0.1.0",
+  "version": "0.1.2",
+  "private": false,
   "description": "Plasmid map visualisations",
   "main": "dist/index.cjs.js",
   "module": "dist/custom-elements/index.js",
@@ -15,7 +16,10 @@
     "email": "support@nanoporetech.com",
     "url": "https://nanoporetech.com"
   },
-  "repository": "git@github.com:nanoporetech/plasmid-map.git",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:nanoporetech/plasmid-map.git"
+  },
   "files": [
     "dist/",
     "loader/"
