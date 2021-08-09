@@ -11,7 +11,7 @@ There are three strategies we recommend for using the `@metrichor/plasmid` web c
 
 ### Script tag
 
-- Put a script tag similar to this `<script src='https://unpkg.com/@metrichor/plasmid@0.1.5/dist/plasmid/plasmid.esm.js'></script>` in the head of your index.html
+- Put a script tag similar to this `<script src='https://unpkg.com/@metrichor/plasmid@0.1.6/dist/plasmid/plasmid.esm.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ### Node Modules
