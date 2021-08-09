@@ -15,6 +15,7 @@
     "email": "support@nanoporetech.com",
     "url": "https://nanoporetech.com"
   },
+  "repository": "git@github.com:nanoporetech/plasmid-map.git",
   "files": [
     "dist/",
     "loader/"
