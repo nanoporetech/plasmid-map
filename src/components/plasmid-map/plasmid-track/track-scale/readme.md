@@ -10,7 +10,7 @@
 | Property       | Attribute      | Description                   | Type         | Default         |
 | -------------- | -------------- | ----------------------------- | ------------ | --------------- |
 | `direction`    | `direction`    | `'in'` is inverse direction   | `"" \| "in"` | `''`            |
-| `interval`     | `interval`     | scale intercal                | `number`     | `0`             |
+| `interval`     | `interval`     | scale interval                | `number`     | `0`             |
 | `labelclass`   | `labelclass`   | CSS class of label            | `string`     | `''`            |
 | `labelstyle`   | `labelstyle`   | CSS element style of label    | `string`     | `''`            |
 | `labelvadjust` | `labelvadjust` | vertical adjustment of labels | `number`     | `15`            |

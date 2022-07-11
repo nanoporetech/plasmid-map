@@ -191,7 +191,7 @@ export class MarkerLabel {
       this.markerRootEl?.append(this.href === '' ? g : a);
     }
 
-    const [lineEl, pathEl, textEl] = Array.from(this.trackMarkerGroupEl.children);
+    const [lineEl, pathEl, textEl] = Array.from(this.trackMarkerGroupEl.children) as unknown as [SVGPathElement, SVGPathElement, SVGTextElement];
 
     textEl.setAttribute('class', this.labelclass);
     textEl.setAttribute('style', this.labelstyle);
@@ -236,6 +236,8 @@ export class MarkerLabel {
       const { x, y } = this.getMarkerPosition(this.hadjust, this.vadjust, this.halign, this.valign) as CartesianCoordinate;
       textEl.setAttribute('x', `${x ?? 0}`);
       textEl.setAttribute('y', `${y ?? 0}`);
+      textEl.style.transform = `rotate(${this.marker.plasmidTrack.plasmid.rotate * -1}deg)`;
+      textEl.style.transformOrigin = `${x ?? 0}px ${y ?? 0}px`;
       textEl.textContent = this.text;
     }
 

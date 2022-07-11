@@ -11,6 +11,7 @@
 | ---------------- | ---------------- | ----------------------------------- | -------- | ------- |
 | `plasmidheight`  | `plasmidheight`  | SVG image height                    | `number` | `300`   |
 | `plasmidwidth`   | `plasmidwidth`   | SVG image width                     | `number` | `300`   |
+| `rotate`         | `rotate`         | SVG image height                    | `number` | `0`     |
 | `sequence`       | `sequence`       | nucleotide sequence `"ACGTGCCT..."` | `string` | `''`    |
 | `sequencelength` | `sequencelength` | Plasmid sequence length             | `number` | `0`     |
 

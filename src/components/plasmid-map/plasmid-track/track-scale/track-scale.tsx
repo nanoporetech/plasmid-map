@@ -11,7 +11,7 @@ import { createNode, elementScaleLabels, pathScale } from '../../../../utils';
 })
 export class TrackScale {
   /**
-   * scale intercal
+   * scale interval
    */
   @Prop() interval = 0;
   /**
@@ -160,6 +160,8 @@ export class TrackScale {
       t.setAttribute('text-anchor', 'middle');
       t.setAttribute('alignment-baseline', 'middle');
       t.textContent = `${labels[i].text}`;
+      t.style.transform = `rotate(${this.track.plasmid.rotate * -1}deg)`;
+      t.style.transformOrigin = `${labels[i].x}px ${labels[i].y}px`;
       // t.on('click', clickHandler);
       this.scaleLabelGroupEl.append(t);
     }

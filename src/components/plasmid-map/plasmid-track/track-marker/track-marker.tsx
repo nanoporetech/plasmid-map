@@ -123,6 +123,10 @@ export class TrackMarker {
     };
   }
 
+  get plasmidTrack(): PlasmidTrack {
+    return this.track;
+  }
+
   get radius(): MarkerRadiusLimit {
     if (this.track === undefined) {
       return {

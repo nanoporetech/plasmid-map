@@ -61,6 +61,7 @@ export class TrackLabel {
       const text = createNode<SVGTextElement>('text', {
         'text-anchor': 'middle',
         'alignment-baseline': 'middle',
+        'transform-origin': 'center',
       });
       // text.addEventListener('click', this.labelclick);
       this.labelEl = text;
@@ -72,6 +73,7 @@ export class TrackLabel {
     this.labelEl.setAttribute('y', `${y + this.vadjust}`);
     this.labelEl.setAttribute('class', this.labelclass);
     this.labelEl.setAttribute('style', this.labelstyle);
+    this.labelEl.style.transform = `rotate(${this.track.plasmid.rotate * -1}deg)`;
   }
 
   async componentDidUpdate() {

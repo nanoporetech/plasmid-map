@@ -23,6 +23,10 @@ export class PlasmidMap {
    * SVG image height
    */
   @Prop() plasmidheight = 300;
+  /**
+   * SVG image height
+   */
+  @Prop() rotate = 0;
   // @Prop() width = 300;
   // @Prop() height = 300;
 
@@ -67,6 +71,9 @@ export class PlasmidMap {
         xmlns="http://www.w3.org/2000/svg"
         viewBox={`0 0 ${this.plasmidwidth} ${this.plasmidheight}`}
         preserveAspectRatio="xMinYMin meet"
+        style={{
+          transform: `rotate(${this.rotate}deg)`,
+        }}
       >
         <slot />
         <plasmid-track class="docs-only" style={{ display: 'none' }} />

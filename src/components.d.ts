@@ -82,6 +82,10 @@ export namespace Components {
          */
         "plasmidwidth": number;
         /**
+          * SVG image height
+         */
+        "rotate": number;
+        /**
           * nucleotide sequence `"ACGTGCCT..."`
          */
         "sequence": string;
@@ -202,7 +206,7 @@ export namespace Components {
          */
         "draw": (plasmidTrackInstance?: PlasmidTrack, trackGroupEl?: SVGGElement) => Promise<void>;
         /**
-          * scale intercal
+          * scale interval
          */
         "interval": number;
         /**
@@ -354,6 +358,10 @@ declare namespace LocalJSX {
          */
         "plasmidwidth"?: number;
         /**
+          * SVG image height
+         */
+        "rotate"?: number;
+        /**
           * nucleotide sequence `"ACGTGCCT..."`
          */
         "sequence"?: string;
@@ -458,7 +466,7 @@ declare namespace LocalJSX {
          */
         "direction"?: '' | 'in';
         /**
-          * scale intercal
+          * scale interval
          */
         "interval"?: number;
         /**
